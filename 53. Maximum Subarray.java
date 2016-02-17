@@ -80,9 +80,11 @@ public int maxSubArray(int[] A) {
         int max = dp[0];
 
         for(int i = 1; i < n; i++){
-            dp[i] = A[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
+            if(dp[i - 1] > 0)
+                dp[i] = A[i] + dp[i - 1];
+            else 
+                dp[i] = A[i] + 0;
             max = Math.max(max, dp[i]);
         }
-
         return max;
 } 
