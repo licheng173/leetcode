@@ -115,3 +115,53 @@ public class Solution {
         return res;
     }
 }
+
+
+//
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        if(matrix.length == 0 || matrix == null) return new ArrayList<Integer>(); 
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int start = 0;
+        List<Integer> n;
+        n = SpiralMatrix(matrix, row, col, 0);
+        
+        return n;
+    }
+    public static List<Integer> SpiralMatrix(int[][] nums, int row, int col, int start){
+        List<Integer> n = new ArrayList<Integer>();
+        while(col > 0 && row > 0){
+            PrintSpiralMatrix(nums, row, col, start,n);
+            row -= 2;
+            col -= 2;
+            start += 1;
+        }
+        return n;
+    }
+
+    public static void PrintSpiralMatrix(int[][] nums, int row, int col, int start,List<Integer> n){
+        int rowEnd = start + row  - 1;//1
+        int colEnd = start + col - 1;//2 start =1
+        for(int i = start; i <= colEnd ; i++){
+            int num = nums[start][i];
+            n.add(num);
+        }
+        for(int  i = start+1; i <= rowEnd; i++){
+            int num = nums[i][colEnd];
+            n.add(num);
+        }
+        if(start < rowEnd){
+        for(int i = colEnd - 1; i >= start; i--){
+            int num = nums[rowEnd][i];
+            n.add(num);
+        }}
+        if(start < colEnd){
+        for(int i = rowEnd - 1; i >= (start + 1); i--){
+            int num = nums[i][start];
+            //System.out.print(num + ",");
+            n.add(num);
+        }
+    }
+    }
+}

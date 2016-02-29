@@ -41,6 +41,45 @@ class MinStack {
         return mstack.peek();
     }
 }
+//two stack
+class MinStack {
+    private final Stack<Integer> s;
+    private final Stack<Integer> r;
+    private int min;
+    
+    public MinStack(){
+        s = new Stack<Integer>();
+        r = new Stack<Integer>();
+        min = Integer.MAX_VALUE;
+    }
+    public void push(int x) {
+        s.push(x);
+        if(x > min)
+        {
+            r.push(min);
+        }
+        else 
+        {
+            r.push(x);
+            min = x;
+        }
+    }
+    public void pop() {
+        s.pop();
+        r.pop();
+        if(!r.isEmpty())
+            min = r.peek();
+        else
+            min = Integer.MAX_VALUE;      
+    }
+    public int top() {
+        return s.peek();
+    }
+
+    public int getMin() {
+        return r.peek(); 
+    }
+}
 
 //one stack;
 public class MinStack {
