@@ -4,31 +4,21 @@
 */
 public class Solution {
     public List<List<Integer>> combinationSum3(int k, int n) {
-    	if(n == 0) return null;
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        List<Integer> c = new ArrayList<Integer>();
-        int level = 0;
-        int index = 0;
-        cal(k, n, res, c, level,index);
-        return res;
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        List<Integer> inList = new ArrayList<Integer>();
+        combination(k, n, outList, inList, 1);
+        return outList;
     }
-
-    public void cal(int k, int target, List<List<Integer>> res, List<Integer> c, int level, int index){
-    	if(target == 0 && level == k){
-    		res.add(c);
-    		return;
-    	}
-
-    	for(int i = index; i < 9; i++){
-    		if((target - i - 1) >= 0 && level < k)
-    		{	
-    			List<Integer> tmp = new ArrayList<Integer>(c);
-    			tmp.add(i+1);
-    		    //System.out.println(level + "  " + index);
-    			cal(k, target - i - 1, res, tmp, level+1, i+1);
-    		}
-    		else
-    			break;
-    	}
+    
+    public void combination(int k, int target, List<List<Integer>> outList, List<Integer> list, int start) {
+        if(target == 0 && list.size() == k) {
+            outList.add(new ArrayList<>(list));
+            return;
+        }
+        for(int i = start; i < 10 && target >= i ; i++) {
+            list.add(i);
+            combination(k, target - i,outList, list, i+1);
+            list.remove(list.size() - 1);
+        }
     }
 }

@@ -56,3 +56,27 @@ public class Solution {
         }
     }
 }
+
+//using while
+public class Solution {
+    public void sortColors(int[] nums) {
+       int low = 0;
+       int high = nums.length - 1;
+       int n = 0;
+       while( n <= high) {
+           if(nums[n] == 0) {
+               nums[n] = nums[low];
+               nums[low] = 0;
+               low++;
+               //n++;
+           }
+          if(nums[n] == 2) {
+               nums[n] = nums[high];
+               nums[high] = 2;
+               high--;
+               n--;
+           }
+               n++;
+       }
+    }
+}

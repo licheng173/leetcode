@@ -17,3 +17,22 @@ public class Solution {
         return m;
     }
 }
+
+//
+public class Solution {
+    public int maxProduct(int[] nums) {
+        int length = nums.length;
+        if(length < 2) return nums[0];
+        int[] maxSub = new int[length];
+        int[] minSub = new int[length];
+        maxSub[0] = nums[0];
+        minSub[0] = nums[0];
+        int res = nums[0];
+        for (int i = 1; i < length; i++) {
+            maxSub[i] = Math.max(Math.max(maxSub[i - 1] * nums[i], minSub[i - 1] * nums[i]), nums[i]);
+            minSub[i] = Math.min(Math.min(minSub[i - 1] * nums[i], maxSub[i - 1] * nums[i]), nums[i]);
+            res = Math.max(res, maxSub[i]);
+        }
+        return res;
+        }
+}
