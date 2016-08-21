@@ -1,22 +1,16 @@
 public class Solution {
-    public int findPeakElement(int[] num) {    
-    int low = 0;
-    int high = num.length-1;
-    int mid1 = (low+high)/2;
-    while(low < high)
-    {
-        if(num[mid1] < num[mid1+1])
-        {
-            low = mid1+1;
-            mid1 = (low+high)/2;
+    public int findPeakElement(int[] nums) {
+        int length = nums.length;
+        int peek = 0;
+        for(int i = 1; i < length; i++) {
+            if(nums[i] < nums[i - 1]) {
+                peek = i - 1;
+                break;
+            }
+            else {
+                peek = i; 
+            }
         }
-                
-        else
-       {
-           high = mid1;                
-           mid1 = (low+high)/2;
-       }
+        return peek;
     }
-    return low;
-}
 }
