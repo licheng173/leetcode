@@ -25,3 +25,24 @@ public class Solution {
         }
     }
 }
+
+//
+public class Solution {
+    public void rotate(int[][] matrix) {
+        int end = matrix.length - 1;
+        int start = 0;
+        int p = end;
+        while(start <= end) {
+            for(int i = 0; i < p; i++) {
+                int tmp = matrix[start][i + start];
+                matrix[start][i + start] = matrix[end - i][start];
+                matrix[end - i][start] = matrix[end][end - i];
+                matrix[end][end - i] = matrix[i + start][end];
+                matrix[i + start][end] = tmp;
+            }
+            start++;
+            end--;
+            p -= 2;
+         }
+    }
+}

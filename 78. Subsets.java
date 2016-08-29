@@ -22,3 +22,24 @@ public class Solution {
         return sub;
     }
 }
+
+//second time
+public class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        int length = nums.length;
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
+        int count = 0;
+        while(count < (1 << length)) {
+            List<Integer> list= new ArrayList<Integer>();
+            int tmp = count;
+            for(int i = 0; i < length; i++) {
+                if((tmp >> i & 1) == 1) {
+                    list.add(nums[i]);
+                }
+            }
+            outList.add(list);
+            count++;
+        }
+        return outList;
+    }
+}

@@ -1,85 +1,40 @@
-//Time Limit Exceed
-
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        List<Integer> li = new ArrayList<Integer>();
-        Set<String> s = new HashSet<String>();
-        if(nums == null || nums.length == 0) {
-            return result;
-        }
-        Arrays.sort(nums);
-        summary(result, li, 0, nums, 0,s);
-        return result;
-    }
-    
-    public void summary(List<List<Integer>> result, List<Integer> li, int target, int[]nums, int level,Set<String> s) {
-        if(target == 0 && !li.isEmpty() && li.size() == 3){
-            if(s.add(li.toString())){
-            result.add(li);
-            return;
-            }
-        }
-        
-        for(int i = level; i < nums.length; i++){
-            if(li.size() <= 3){
-                List<Integer> tmp = new ArrayList<Integer>(li);
-                tmp.add(nums[i]);
-                summary(result, tmp, target - nums[i], nums, i+1,s);
-            }
-            else
-                break;
-        }
-    }
-}
-
-///Accepted Solution
-public class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        Arrays.sort(nums);
-        if(nums == null || nums.length == 0) {
-            return result;
-        }
         int length = nums.length;
+        Arrays.sort(nums);
+        List<List<Integer>> outList = new ArrayList<List<Integer>>();
         for(int i = 0; i < length - 2; i++) {
-            int ar = nums[i]; 
-            int sum = 0 - ar;
-            int lo = i+1;
-            //System.out.println(sum);
+            int target = -nums[i];
+            int lo = i + 1;
             int hi = length - 1;
-            while(lo < hi){
-                
-                if(nums[lo] + nums[hi] == sum){
-                    //System.out.println(nums[lo]+"lo");
-                    //System.out.println(nums[hi]+"hi");
-                    List<Integer> li = new ArrayList<Integer>();
-                    li.add(nums[i]);
-                    li.add(nums[lo]);
-                    li.add(nums[hi]);  
-                    result.add(li);
-                    while((lo < length - 1) && nums[lo] == nums[lo +1]){
+            while(lo < hi) {
+                if((nums[lo] + nums[hi]) == target) {
+                    List<Integer> lis = new ArrayList<Integer>();
+                    lis.add(nums[i]);
+                    lis.add(nums[lo]);
+                    lis.add(nums[hi]);
+                    outList.add(lis); 
+                    while(lo < length - 1 && nums[lo] == nums[lo + 1]) {
                         lo++;
                     }
-                    while(hi > lo && nums[hi] == nums[hi - 1]){
+                    while(hi > lo && nums[hi] == nums[hi - 1]) {
                         hi--;
                     }
                     lo++;
                     hi--;
-                } 
-                else if(nums[lo] + nums[hi] < sum) {
-                    lo++;
                 }
-                else {
+                else if(nums[lo] + nums[hi] > target) {
                     hi--;
                 }
-                
+                else {
+                    lo++;
+                }
             }
-            while(i < length - 3 && nums[i] == nums[i+1]){
+             while(i < length - 3 && nums[i] == nums[i+1]) {
                 i++;
             }
         }
-        return result;
+        return outList;
     }
 }
 

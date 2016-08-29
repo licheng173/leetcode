@@ -88,3 +88,17 @@ public int maxSubArray(int[] A) {
         }
         return max;
 } 
+
+//
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        int length = nums.length;
+        int CurSum = nums[0];
+        int largestSum = nums[0];
+        for(int i = 1; i < length; i++) {
+            CurSum = Math.max(nums[i], CurSum + nums[i]);
+            largestSum = Math.max(CurSum, largestSum);
+        }
+        return largestSum;
+    }
+}

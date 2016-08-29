@@ -84,20 +84,20 @@ public class Solution {
 
         while (rowBegin <= rowEnd && colBegin <= colEnd) {
             // Traverse Right
-            for (int j = colBegin; j <= colEnd; j ++) {
+            for (int j = colBegin; j <= colEnd; j++) {
                 res.add(matrix[rowBegin][j]);
             }
             rowBegin++;
 
             // Traverse Down
-            for (int j = rowBegin; j <= rowEnd; j ++) {
+            for (int j = rowBegin; j <= rowEnd; j++) {
                 res.add(matrix[j][colEnd]);
             }
             colEnd--;
 
             if (rowBegin <= rowEnd) {
                 // Traverse Left
-                for (int j = colEnd; j >= colBegin; j --) {
+                for (int j = colEnd; j >= colBegin; j--) {
                     res.add(matrix[rowEnd][j]);
                 }
             }
@@ -105,7 +105,7 @@ public class Solution {
 
             if (colBegin <= colEnd) {
                 // Traver Up
-                for (int j = rowEnd; j >= rowBegin; j --) {
+                for (int j = rowEnd; j >= rowBegin; j--) {
                     res.add(matrix[j][colBegin]);
                 }
             }
@@ -127,7 +127,7 @@ public class Solution {
         List<Integer> n;
         n = SpiralMatrix(matrix, row, col, 0);
         
-        return n;
+        return n; 
     }
     public static List<Integer> SpiralMatrix(int[][] nums, int row, int col, int start){
         List<Integer> n = new ArrayList<Integer>();

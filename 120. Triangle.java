@@ -43,3 +43,40 @@ public class Solution {
         return minlen[0];
     }
 }
+
+
+//25/08/2016
+//10ms  sencond
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int rowLength = triangle.size() - 1;
+        //System.out.print(rowLength);
+        for(int i = rowLength; i > 0; i--) {
+            List<Integer> list = triangle.get(i);
+            int s = list.size() - 1;
+            List<Integer> l = triangle.get(i - 1);
+            for(int j = 0; j < s; j++) {
+                int m = Math.min(list.get(j) + l.get(j), list.get(j + 1) + l.get(j));
+                l.set(j, m);
+            }
+        }
+        return triangle.get(0).get(0);
+    }
+}
+
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int rowLength = triangle.size() - 1;
+        //System.out.print(rowLength);
+        int[] m = new int[rowLength + 2];
+        for(int i = rowLength; i >= 0; i--) {
+            List<Integer> list = triangle.get(i);
+            int s = list.size();
+            //List<Integer> l = triangle.get(i - 1);
+            for(int j = 0; j < s; j++) {
+                m[j] = Math.min(list.get(j) + m[j], list.get(j) + m[j + 1]);
+            }
+        }
+        return m[0];
+    }
+}

@@ -1,16 +1,4 @@
-public class Solution {
-    public int searchInsert(int[] nums, int target) {
-        int length = nums.length;
-        int i = 0;
-        while(i < length)
-        {
-            if(nums[i] >= target)
-                return i;
-            i++;
-        }
-        return length;
-    }
-}
+
 //Binary search
 public class Solution {
 public int searchInsert(int[] nums, int target) {
@@ -23,4 +11,27 @@ public int searchInsert(int[] nums, int target) {
             high = mid;
     }
     return low;
+}
+
+public class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+        int mid = 0;
+        while(start <= end) {
+            mid = start + (end - start + 1) / 2;
+            if(nums[mid] == target) {
+                return mid;
+            }
+            if(nums[mid] > target) {
+                end = mid - 1;
+            }
+            if(nums[mid] < target) {
+                start = mid+1;
+                System.out.println(start);
+            }
+        }
+        
+        return start;
+    }
 }
