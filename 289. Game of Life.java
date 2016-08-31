@@ -84,3 +84,45 @@ public int liveNeighbors(int[][] board, int m, int n, int i, int j) {
     return lives;
 }
 }
+
+
+
+// third 
+public class Solution {
+    public void gameOfLife(int[][] board) {
+        if(board.length == 0 || board == null) return;
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                int c = getNei(board, i, j);
+                if(board[i][j] == 1) {
+                    if(c == 2 || c == 3) {
+                        board[i][j] = 3;
+                    }
+                }
+                else {
+                    if(c == 3) {
+                        board[i][j] = 2;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                board[i][j] = board[i][j] >>> 1;
+            }
+        }
+    }
+    
+    public int getNei(int[][] board, int row, int col) {
+        int cnt = 0;
+        for(int i=row-1; i<=row+1; i++){
+                for(int j=col-1; j<=col+1; j++){
+                    if(i>=0 && i<board.length && j>=0 && j<board[0].length){
+                        cnt += board[i][j]&1;
+                    }
+                }
+            }
+            cnt-=board[row][col]&1;
+            return cnt;
+    }
+}
