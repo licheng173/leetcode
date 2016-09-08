@@ -15,3 +15,33 @@ public class Solution {
     }
 }
 
+
+
+
+// iteration
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> l = new ArrayList<Integer>();
+        TreeNode tr = root;
+        while(!stack.empty() || tr != null) {
+            while(tr != null) {
+                stack.push(tr);
+                tr = tr.left;
+            }
+            tr = stack.pop();
+            l.add(tr.val);
+            tr = tr.right;
+        }
+        return l;
+    }
+}
