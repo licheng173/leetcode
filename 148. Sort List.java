@@ -63,3 +63,36 @@ public class Solution {
 
 
 //use O(1)space
+
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode f = head.next.next;
+        ListNode p = head;
+        while (f != null && f.next != null) {
+            p = p.next;
+            f =  f.next.next;
+        }
+        ListNode h2 = sortList(p.next);
+        p.next = null;
+        return merge(sortList(head), h2);
+    }
+    public ListNode merge(ListNode l1, ListNode l2) {
+        if(l1 == null && l2 != null) {
+            return l2;
+        }
+        if(l1 != null && l2 == null) {
+            return l1;
+        }
+        if(l1.val <= l2.val) {
+            l1.next = merge(l1.next, l2);
+            return l1;
+        }
+        if(l1.val > l2.val) {
+            l2.next = merge(l1, l2.next);
+            return l2;
+        }
+        return null;
+    }
+}

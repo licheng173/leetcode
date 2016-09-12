@@ -1,21 +1,19 @@
     public ListNode insertionSortList(ListNode head) {
         if(head == null || head.next == null) return head;
-        ListNode p = new ListNode(-1);
-        p.next = null;
-        ListNode m = head;
-        while(m != null)
+        ListNode insertHead = new ListNode(-1);
+        insertHead.next = null;
+        ListNode current = head;
+        while(current != null)
         {
-            ListNode tm = m.next;
-            ListNode n = p;
-            ListNode l = p.next;
-            while(l != null && l.val < m.val )
+            ListNode tmp = current.next;
+            ListNode pre = insertHead;
+            while(pre.next != null && pre.next.val < current.val )
             {
-                l = l.next;
-                n = n.next;
+                pre = pre.next;
             }
-            m.next = n.next;
-            n.next = m;
-            m = tm;
+            current.next = pre.next;
+            pre.next = current;
+            current = tmp;
         }
-        return p.next;
+        return insertHead.next;
     }
