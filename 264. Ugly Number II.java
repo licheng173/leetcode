@@ -24,3 +24,26 @@ public class Solution {
         return uglyList[n - 1];
     }
 }
+
+public class Solution {
+    public int nthUglyNumber(int n) {
+        PriorityQueue<Long> pq = new PriorityQueue<Long>();
+        pq.add(1l);
+        int count = 0;
+        long tmp = 0;
+        while(n > 0) {
+            tmp = pq.poll();
+            while(!pq.isEmpty() && tmp == pq.peek()){
+            tmp = pq.poll();
+            }
+            
+            pq.add(tmp * 2);
+            pq.add(tmp * 3);
+            pq.add(tmp * 5);
+            n--;
+        }
+        
+        
+        return (int)tmp;
+    }
+}
