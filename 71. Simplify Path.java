@@ -1,26 +1,23 @@
 public class Solution {
     public String simplifyPath(String path) {
-        String[] splitString = path.split("/");
+        String[] arr = path.substring(1).split("/+");
         Stack<String> stack = new Stack<String>();
-        int length = splitString.length;
-        for(int i = 0; i < length; i++) {
-            if(!stack.empty() && splitString[i].equals("..")) {
+        for(int i = 0; i < arr.length; i++) {
+            if(!arr[i].equals("..") && !arr[i].equals(".") && !arr[i].equals("")) {
+                stack.push("/" + arr[i]);
+            }
+            else if(arr[i].equals("..") && !stack.isEmpty()) {
                 stack.pop();
-                continue;
-            }else if (!splitString[i].equals("") && !splitString[i].equals(".")&& !splitString[i].equals("..")){
-                stack.push(splitString[i]);
             }
         }
-        String sum = "";
-        if(stack.empty()) return "/";
-        while(!stack.empty()) {
-            String tmp = stack.pop();
-            //System.out.println(tmp);
-            sum = "/" + tmp+ sum;
+        StringBuilder build = new StringBuilder();
+        for(String st : stack) {
+            build.append(st);
         }
-        return sum;
+        return build.length() > 0 ? build.toString() : "/" + build.toString();
     }
 }
 
 //coner case
 // /..    /../   /home//foo/
+

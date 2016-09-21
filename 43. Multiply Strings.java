@@ -53,3 +53,31 @@ public String multiply(String num1, String num2) {
     for(int p : pos) if(!(sb.length() == 0 && p == 0)) sb.append(p);
     return sb.length() == 0 ? "0" : sb.toString();
 }
+
+//other way to do this
+public class Solution {
+    public class Solution {
+public String multiply(String num1, String num2) {
+        if(num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+        int carry = 0;
+        StringBuilder build = new StringBuilder();
+        for(int i = 0; i < (num1.length() + num2.length() - 1); i++) {
+            int pro = 0;
+            for(int j = 0; j <= i; j++) {
+                if(j < num1.length() && (i - j) < num2.length()) {
+                    pro += (num1.charAt(num1.length() - 1 - j) - '0') * (num2.charAt(num2.length() - 1 -(i - j)) - '0');
+                }
+            }
+            pro += carry;
+            build.append(pro % 10);
+            carry = pro / 10;
+        }
+        if(carry > 0) {
+            build.append(carry);
+        }
+        return build.reverse().toString();
+    }
+}
+}
