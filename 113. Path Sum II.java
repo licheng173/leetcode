@@ -1,31 +1,22 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
 public class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<Integer> l = new ArrayList<Integer>();
-        List<List<Integer>> s = new ArrayList<List<Integer>>();
-        if(root == null) return s;
-         path(l,s,sum,root);
-         return s;
+        List<List<Integer>> out = new ArrayList<List<Integer>>();
+        List<Integer> l =  new ArrayList<>();
+        helper(root, sum, out, l, 0);
+        return out;
     }
     
-    public void path(List<Integer> l, List<List<Integer>> s, int sum, TreeNode root){
-    	if(root == null) return;
-    	List<Integer> tmp = new ArrayList<Integer>(l);
-    	tmp.add(root.val);
-    	if(sum == root.val && root.left == null && root.right == null)
-    	{
-    		s.add(tmp);
-    		return;
-    	}
-    	path(tmp,s,sum - root.val, root.left);
-    	path(tmp,s,sum -root.val, root.right); 
+    public void helper(TreeNode root, int sum, List<List<Integer>> out, List<Integer> list,int count) {
+        if(root == null) {
+            return;
+        }
+        if(root.left == null && root.right == null && count + root.val == sum) {
+            list.add(root.val);
+            out.add(list);
+            return;
+        }
+        list.add(root.val);
+        helper(root.left, sum, out, new ArrayList(list), count + root.val);
+        helper(root.right, sum, out, new ArrayList(list), count + root.val);
     }
 }
