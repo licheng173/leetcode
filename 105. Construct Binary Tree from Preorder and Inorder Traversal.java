@@ -17,77 +17,33 @@
  * }
  */
 
-//67ms
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        if(preorder.length == 0 || inorder.length == 0) return null;
-        return buildBtree(preorder, inorder,new TreeNode(preorder[0]));
+        return helper(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
     }
-
-    public TreeNode buildBtree(int[] preorder, int[] inorder,TreeNode root)
-    {
-    	if(preorder.length <= 1) return root;
-        int flag = 0;
-        TreeNode l,r;
-    	for(int i =0; i < inorder.length; i++)
-    	{
-    		if(inorder[i] == preorder[0])
-    		{
-    			flag = i;
-    			break;
-    		}
-    	}
-    	int[] leftInorder;
-    	int[] leftPreorder;
-    	int[] rightInorder;
-    	int[] rightPreorder;
-    	//System.out.println(inorder.length - flag -1);
-    	if(flag != 0)
-    	{
-    	    leftInorder = new int[flag];
-    	    leftPreorder = new int[flag];
-    	    for(int i = 0; i < flag; i++)
-    	    {
-    	    	leftInorder[i] = inorder[i];
-    	    }
-    	    for(int i = 1; i <= flag; i++)
-    	    {
-    	    	leftPreorder[i - 1] = preorder[i];
-    	    }
-    	    l = new TreeNode(leftPreorder[0]);
-    	    root.left = buildBtree(leftPreorder,leftInorder,l);
-    	}
-    	else
-    	{
-    	    leftInorder = new int[0];
-    	    leftPreorder = new int[0];
-    	    l = null;
-    	    root.left = buildBtree(leftPreorder,leftInorder,l);
-    	}
-    	if(inorder.length - flag - 1 != 0)
-    	{
-    	    rightInorder = new int[inorder.length - flag -1];
-    	    rightPreorder = new int[inorder.length - flag -1];
-    		for(int i = flag + 1; i < inorder.length; i++)
-    	    {
-    		    rightInorder[i - flag - 1] = inorder[i];
-    	    }
-    	    for(int i = flag + 1; i < preorder.length; i++)
-    	    {   
-    		    rightPreorder[i - flag - 1] = preorder[i];
-    	    }
-    	    r = new TreeNode(rightPreorder[0]);
-    	    root.right = buildBtree(rightPreorder,rightInorder,r);
-    	}
-        else
-        {
-            rightInorder = new int[0];
-    	    rightPreorder = new int[0];
-            r =null;
-            root.right = buildBtree(rightPreorder,rightInorder,r);
+    public TreeNode helper(int[] preorder, int[] inorder, int ps, int pe, int is, int ie) {
+        if(ps > pe || is > ie) {
+            return null;
         }
-    	return root;
-    	
+        if(is == ie) {
+            TreeNode n = new TreeNode(inorder[is]);
+            
+            n.left = null;
+            n.right = null;
+            return n;
+        }
+        TreeNode node = new TreeNode(preorder[ps]);
+        int index = is;
+        while(index <= ie) {
+            if(inorder[index] == preorder[ps])
+                break;
+            index++;
+        }
+        //System.out.println(index);
+        node.left = helper(preorder, inorder, ps + 1, index - is + ps, is, index - 1);
+        node.right = helper(preorder, inorder, pe - ie + index + 1, pe, index + 1, ie);
+        return node;
+        
     }
 }
 //simple version
