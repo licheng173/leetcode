@@ -31,3 +31,25 @@ public class Solution {
         return result;
     }
 }
+
+//one pass
+public class Solution {
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        int result = 0;
+        int res = 0;
+        while(!nestedList.isEmpty()) {
+            List<NestedInteger> ls = new ArrayList<>();
+            for(NestedInteger nest : nestedList) {
+                if(nest.isInteger()) {
+                    res += nest.getInteger();
+                }
+                else {
+                    ls.addAll(nest.getList());
+                }
+            }
+            result += res;
+            nestedList = ls;
+        }
+        return result;
+    }
+}
